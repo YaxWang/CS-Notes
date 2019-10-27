@@ -132,6 +132,40 @@ private int maxCount(Map<Integer, Integer> countForNum) {
 }
 ```
 
+代码更简单些的代码，使用set来记录数据。从set的第一个元素开始，如果当前元素是上一个元素+1，继续计数；如果当前元素不再是上一个元素+1，将当前计数记录。C++下的代码如下。
+int longestConsecutive(vector<int>& nums) {
+    if(nums.size() == 0)
+        return 0;
+    if(nums.size() == 1)
+        return 1;
+
+    int result = 0;
+    set<int> num_set;
+    for(int i = 0; i < nums.size(); i++)
+        num_set.insert(nums[i]);
+
+    set<int>::iterator it = num_set.begin();
+    int temp = 1; int prev = *it;
+    it++;
+    for( ; it != num_set.end(); it++)
+    {
+        if(*it == prev + 1)
+        {
+            temp++;
+        }
+        else
+        {
+            if(temp > result)
+                result = temp;
+            temp = 1;
+        }    
+        prev = *it;
+    }
+
+    if(temp > result)
+        result = temp;
+    return result;
+}
 
 
 
